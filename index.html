@@ -39,10 +39,14 @@ transform:scale(1.1);
 
 <p>Select Your Class</p>
 
-<button>Class 9</button>
-<button>Class 10</button>
-<button>Class 11</button>
-<button>Class 12</button>
-<button>Start Test</button>
+<button onclick="selectClass('9')">Class 9</button>
+<button onclick="selectClass('10')">Class 10</button>
+<button onclick="selectClass('11')">Class 11</button>
+<button onclick="selectClass('12')">Class 12</button>
+  <script>
+function selectClass(classNumber) {
+    alert("You selected Class " + classNumber);
+}
+</script>
 </body>
 </html>
