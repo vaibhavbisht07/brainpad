@@ -1,1 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Select Subject</title>
+</head>
 
+<body>
+
+<h1>Select Subject</h1>
+
+<button onclick="selectSubject('math')">Mathematics</button>
+<button onclick="selectSubject('science')">Science</button>
+<button onclick="selectSubject('english')">English</button>
+
+<script>
+function selectSubject(subject) {
+  window.location.href = "chapters.html?subject=" + subject;
+}
+</script>
+
+</body>
+</html>
