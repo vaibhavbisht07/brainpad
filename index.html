@@ -43,9 +43,9 @@ transform:scale(1.1);
 <button onclick="selectClass('10')">Class 10</button>
 <button onclick="selectClass('11')">Class 11</button>
 <button onclick="selectClass('12')">Class 12</button>
-  <script>
+ <script>
 function selectClass(classNumber) {
-    alert("You selected Class " + classNumber);
+  window.location.href = "test.html?class=" + classNumber;
 }
 </script>
 </body>
