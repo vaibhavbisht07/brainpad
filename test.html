@@ -1,30 +1,152 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 <title>BrainPad Quiz</title>
+
+<style>
+
+body{
+font-family: Arial;
+text-align:center;
+}
+
+#timer{
+font-size:25px;
+color:red;
+margin-bottom:20px;
+}
+
+#resultBox{
+font-size:40px;
+font-weight:bold;
+margin-top:50px;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<h1>Quiz</h1>
+<h1>BrainPad Math Quiz</h1>
 
-<p>What is 2 + 2?</p>
+<div id="timer">Time Left: 5:00</div>
 
-<button onclick="check('3')">3</button>
-<button onclick="check('4')">4</button>
-<button onclick="check('5')">5</button>
+<p id="question"></p>
 
-<p id="result"></p>
+<label><input type="radio" name="answer" value="0"> <span id="opt0"></span></label><br>
+<label><input type="radio" name="answer" value="1"> <span id="opt1"></span></label><br>
+<label><input type="radio" name="answer" value="2"> <span id="opt2"></span></label><br>
+
+<br><br>
+
+<button onclick="nextQuestion()">Next</button>
+
+<div id="resultBox"></div>
 
 <script>
-function check(answer) {
- if(answer == '4'){
-   document.getElementById("result").innerHTML = "Correct!";
- } else {
-   document.getElementById("result").innerHTML = "Wrong!";
- }
+
+let questions = [
+
+{q:"What is 2 + 2?", options:["3","4","5"], answer:1},
+{q:"What is 5 + 3?", options:["7","8","9"], answer:1},
+{q:"What is 10 - 6?", options:["3","4","5"], answer:1},
+{q:"What is 7 + 2?", options:["8","9","10"], answer:1},
+{q:"What is 9 - 4?", options:["4","5","6"], answer:1},
+{q:"What is 6 + 6?", options:["11","12","13"], answer:1},
+{q:"What is 15 - 5?", options:["9","10","11"], answer:1},
+{q:"What is 3 + 4?", options:["6","7","8"], answer:1},
+{q:"What is 8 + 1?", options:["8","9","10"], answer:1},
+{q:"What is 14 - 7?", options:["6","7","8"], answer:1}
+
+];
+
+let current = 0;
+let score = 0;
+
+function loadQuestion(){
+
+document.getElementById("question").innerHTML =
+"Question " + (current+1) + " / 10 : " + questions[current].q;
+
+document.getElementById("opt0").innerHTML = questions[current].options[0];
+document.getElementById("opt1").innerHTML = questions[current].options[1];
+document.getElementById("opt2").innerHTML = questions[current].options[2];
+
+let radios = document.getElementsByName("answer");
+
+for(let r of radios){
+r.checked = false;
 }
+
+}
+
+function nextQuestion(){
+
+let radios = document.getElementsByName("answer");
+let selected = -1;
+
+for(let r of radios){
+if(r.checked){
+selected = r.value;
+}
+}
+
+if(selected == questions[current].answer){
+score++;
+}
+
+current++;
+
+if(current < questions.length){
+loadQuestion();
+}else{
+showResult();
+}
+
+}
+
+function showResult(){
+
+document.getElementById("question").style.display="none";
+document.getElementById("timer").style.display="none";
+
+document.getElementById("resultBox").innerHTML =
+"Quiz Finished<br>Your Score: " + score + " / 10";
+
+}
+
+loadQuestion();
+
+
+// 5-MINUTE TIMER
+
+let time = 300;
+
+let timer = setInterval(function(){
+
+let minutes = Math.floor(time/60);
+let seconds = time%60;
+
+if(seconds < 10){
+seconds = "0"+seconds;
+}
+
+document.getElementById("timer").innerHTML =
+"Time Left: " + minutes + ":" + seconds;
+
+time--;
+
+if(time < 0){
+clearInterval(timer);
+showResult();
+}
+
+},1000);
+
 </script>
 
 </body>
+
 </html>
