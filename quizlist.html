@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Select Chapter</title>
+<title>Select Quiz</title>
 </head>
 
 <body>
 
-<h1>Select Chapter</h1>
+<h1>Select Quiz</h1>
 
-<button onclick="selectChapter('1')">Chapter 1</button>
-<button onclick="selectChapter('2')">Chapter 2</button>
-<button onclick="selectChapter('3')">Chapter 3</button>
+<button onclick="startQuiz('1')">Quiz 1</button>
+<button onclick="startQuiz('2')">Quiz 2</button>
 
 <script>
-function selectChapter(chapter) {
-  window.location.href = "quizlist.html?chapter=" + chapter;
+function startQuiz(quiz) {
+  window.location.href = "test.html?quiz=" + quiz;
 }
 </script>
 
