@@ -2,21 +2,32 @@
 <html>
 <head>
 <title>Select Chapter</title>
-</head>
 
-<body>
+<style>
 
-<h1>Select Chapter</h1>
-
-<button onclick="selectChapter('1')">Chapter 1</button>
-<button onclick="selectChapter('2')">Chapter 2</button>
-<button onclick="selectChapter('3')">Chapter 3</button>
-
-<script>
-function selectChapter(chapter) {
-  window.location.href = "quizlist.html?chapter=" + chapter;
+body{
+margin:0;
+font-family:Arial;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#1e63d6,#4fb2ff);
 }
-</script>
 
-</body>
-</html>
+.container{
+background:white;
+padding:50px;
+border-radius:15px;
+box-shadow:0 12px 30px rgba(0,0,0,0.2);
+text-align:center;
+width:400px;
+}
+
+h1{
+margin-bottom:30px;
+font-size:30px;
+}
+
+button{
+display:block
