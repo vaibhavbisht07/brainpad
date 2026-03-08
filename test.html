@@ -1,111 +1,210 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-<title>BrainPad Quiz</title>
+<title>BrainPad Math Quiz</title>
 
 <style>
 
 body{
-font-family: Arial;
+font-family: Arial, sans-serif;
+background:#f4f6fb;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+#container{
 text-align:center;
 }
 
-#timer{
-font-size:25px;
-color:red;
+h1{
 margin-bottom:20px;
+font-size:36px;
 }
 
-#resultBox{
+#quizBox{
+background:white;
+padding:35px;
+width:420px;
+border-radius:12px;
+box-shadow:0 6px 20px rgba(0,0,0,0.15);
+}
+
+#timer{
+font-size:18px;
+color:#d63031;
+margin-bottom:10px;
+font-weight:bold;
+}
+
+#qNumber{
+font-size:16px;
+margin-bottom:15px;
+color:#555;
+}
+
+#question{
+font-size:22px;
+margin-bottom:20px;
+font-weight:bold;
+}
+
+.option{
+display:block;
+background:#f1f2f6;
+margin:10px 0;
+padding:12px;
+border-radius:8px;
+font-size:18px;
+cursor:pointer;
+text-align:left;
+}
+
+.option input{
+margin-right:10px;
+}
+
+.option:hover{
+background:#dfe6e9;
+}
+
+button{
+margin-top:20px;
+padding:10px 25px;
+font-size:16px;
+border:none;
+background:#0984e3;
+color:white;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:hover{
+background:#0766b3;
+}
+
+#progressBar{
+width:100%;
+height:15px;
+background:#ddd;
+border-radius:10px;
+margin-top:20px;
+}
+
+#progress{
+height:15px;
+width:0%;
+background:#00b894;
+border-radius:10px;
+}
+
+#result{
 font-size:40px;
 font-weight:bold;
-margin-top:50px;
+margin-top:30px;
 }
 
 </style>
-
 </head>
 
 <body>
 
+<div id="container">
+
 <h1>BrainPad Math Quiz</h1>
+
+<div id="quizBox">
 
 <div id="timer">Time Left: 5:00</div>
 
-<p id="question"></p>
+<div id="qNumber"></div>
 
-<label><input type="radio" name="answer" value="0"> <span id="opt0"></span></label><br>
-<label><input type="radio" name="answer" value="1"> <span id="opt1"></span></label><br>
-<label><input type="radio" name="answer" value="2"> <span id="opt2"></span></label><br>
+<div id="question"></div>
 
-<br><br>
-<div style="width:300px;margin:auto;background:#ddd;height:20px;border-radius:10px;">
-<div id="progress" style="height:20px;background:green;width:0%;border-radius:10px;"></div>
-</div>
+<label class="option">
+<input type="radio" name="answer" value="0">
+<span id="opt0"></span>
+</label>
 
-<br>
+<label class="option">
+<input type="radio" name="answer" value="1">
+<span id="opt1"></span>
+</label>
+
+<label class="option">
+<input type="radio" name="answer" value="2">
+<span id="opt2"></span>
+</label>
 
 <button onclick="nextQuestion()">Next</button>
 
-<div id="resultBox"></div>
+<div id="progressBar">
+<div id="progress"></div>
+</div>
+
+<div id="result"></div>
+
+</div>
+</div>
 
 <script>
 
-let questions = [
-
-{q:"What is 2 + 2?", options:["3","4","5"], answer:1},
-{q:"What is 5 + 3?", options:["7","8","9"], answer:1},
-{q:"What is 10 - 6?", options:["3","4","5"], answer:1},
-{q:"What is 7 + 2?", options:["8","9","10"], answer:1},
-{q:"What is 9 - 4?", options:["4","5","6"], answer:1},
-{q:"What is 6 + 6?", options:["11","12","13"], answer:1},
-{q:"What is 15 - 5?", options:["9","10","11"], answer:1},
-{q:"What is 3 + 4?", options:["6","7","8"], answer:1},
-{q:"What is 8 + 1?", options:["8","9","10"], answer:1},
-{q:"What is 14 - 7?", options:["6","7","8"], answer:1}
-
+let questions=[
+{q:"5 + 3 = ?",o:["6","8","10"],a:1},
+{q:"10 - 4 = ?",o:["6","5","7"],a:0},
+{q:"6 × 2 = ?",o:["12","10","14"],a:0},
+{q:"9 + 1 = ?",o:["11","10","12"],a:1},
+{q:"15 - 5 = ?",o:["8","9","10"],a:2},
+{q:"3 × 4 = ?",o:["7","12","10"],a:1},
+{q:"20 ÷ 4 = ?",o:["6","5","4"],a:1},
+{q:"7 + 6 = ?",o:["13","12","11"],a:0},
+{q:"8 × 2 = ?",o:["14","16","18"],a:1},
+{q:"18 ÷ 3 = ?",o:["6","5","7"],a:0}
 ];
 
-let current = 0;
-let score = 0;
+let current=0;
+let score=0;
 
 function loadQuestion(){
 
-document.getElementById("question").innerHTML =
-"Question " + (current+1) + " / 10 : " + questions[current].q;
+let q=questions[current];
 
-document.getElementById("opt0").innerHTML = questions[current].options[0];
-document.getElementById("opt1").innerHTML = questions[current].options[1];
-document.getElementById("opt2").innerHTML = questions[current].options[2];
+document.getElementById("qNumber").innerHTML="Question "+(current+1)+" / 10";
 
-let radios = document.getElementsByName("answer");
+document.getElementById("question").innerHTML=q.q;
 
-for(let r of radios){
-r.checked = false;
-}
-let percent = ((current+1) / questions.length)* 100;
-document.getElementById("progress").style.width =percent + "%";
+document.getElementById("opt0").innerHTML=q.o[0];
+document.getElementById("opt1").innerHTML=q.o[1];
+document.getElementById("opt2").innerHTML=q.o[2];
+
+let radios=document.getElementsByName("answer");
+for(let r of radios) r.checked=false;
+
+document.getElementById("progress").style.width=((current)/10*100)+"%";
+
 }
 
 function nextQuestion(){
 
-let radios = document.getElementsByName("answer");
-let selected = -1;
+let radios=document.getElementsByName("answer");
+let selected=-1;
 
 for(let r of radios){
-if(r.checked){
-selected = r.value;
-}
+if(r.checked) selected=r.value;
 }
 
-if(selected == questions[current].answer){
-score++;
+if(selected==-1){
+alert("Please select an option");
+return;
 }
+
+if(selected==questions[current].a) score++;
 
 current++;
 
-if(current < questions.length){
+if(current<questions.length){
 loadQuestion();
 }else{
 showResult();
@@ -115,36 +214,27 @@ showResult();
 
 function showResult(){
 
-document.getElementById("question").style.display="none";
-document.getElementById("timer").style.display="none";
-
-document.getElementById("resultBox").innerHTML =
-"Quiz Finished<br>Your Score: " + score + " / 10";
+document.getElementById("quizBox").innerHTML=
+"<div id='result'>Your Score: "+score+" / 10</div><br><button onclick='location.reload()'>Restart Quiz</button>";
 
 }
 
 loadQuestion();
 
+let time=300;
 
-// 5-MINUTE TIMER
+let timer=setInterval(function(){
 
-let time = 300;
+let minutes=Math.floor(time/60);
+let seconds=time%60;
 
-let timer = setInterval(function(){
+if(seconds<10) seconds="0"+seconds;
 
-let minutes = Math.floor(time/60);
-let seconds = time%60;
-
-if(seconds < 10){
-seconds = "0"+seconds;
-}
-
-document.getElementById("timer").innerHTML =
-"Time Left: " + minutes + ":" + seconds;
+document.getElementById("timer").innerHTML="Time Left: "+minutes+":"+seconds;
 
 time--;
 
-if(time < 0){
+if(time<0){
 clearInterval(timer);
 showResult();
 }
@@ -154,5 +244,4 @@ showResult();
 </script>
 
 </body>
-
 </html>
