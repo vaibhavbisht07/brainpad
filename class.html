@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Select Class</title>
+
+<style>
+body{
+font-family:Arial;
+background:linear-gradient(135deg,#4facfe,#00f2fe);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+margin:0;
+}
+
+.container{
+background:white;
+padding:40px;
+border-radius:10px;
+text-align:center;
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
+button{
+padding:12px 30px;
+margin:10px;
+font-size:16px;
+border:none;
+border-radius:6px;
+background:#0984e3;
+color:white;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Select Class</h1>
+
+<button onclick="goSubject()">Class 9</button>
+<button onclick="goSubject()">Class 10</button>
+<button onclick="goSubject()">Class 11</button>
+<button onclick="goSubject()">Class 12</button>
+
+</div>
+
+<script>
+function goSubject(){
+window.location.href="subjects.html";
+}
+</script>
+
+</body>
+</html>
