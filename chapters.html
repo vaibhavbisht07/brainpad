@@ -30,4 +30,56 @@ font-size:30px;
 }
 
 button{
-display:block
+display:block;
+width:100%;
+padding:14px;
+margin:10px 0;
+font-size:18px;
+border:none;
+border-radius:8px;
+background:#1e63d6;
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+background:#0f4bb3;
+transform:scale(1.05);
+}
+
+.progress{
+font-size:14px;
+color:#555;
+margin-bottom:15px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="progress">
+Class → Subject → <b>Chapter</b> → Quiz
+</div>
+
+<h1>📚 Select Chapter</h1>
+
+<button onclick="selectQuiz()">Chapter 1</button>
+<button onclick="selectQuiz()">Chapter 2</button>
+<button onclick="selectQuiz()">Chapter 3</button>
+
+</div>
+
+<script>
+
+function selectQuiz(){
+window.location.href="quizlist.html";
+}
+
+</script>
+
+</body>
+</html>
