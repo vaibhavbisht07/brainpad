@@ -2,19 +2,66 @@
 <html>
 <head>
 <title>Select Quiz</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:linear-gradient(135deg,#4facfe,#00f2fe);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+margin:0;
+}
+
+.container{
+background:white;
+padding:40px;
+border-radius:10px;
+text-align:center;
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
+h1{
+margin-bottom:25px;
+}
+
+button{
+padding:12px 30px;
+margin:10px;
+font-size:16px;
+border:none;
+border-radius:6px;
+background:#0984e3;
+color:white;
+cursor:pointer;
+}
+
+button:hover{
+background:#0652dd;
+}
+
+</style>
 </head>
 
 <body>
 
+<div class="container">
+
 <h1>Select Quiz</h1>
 
-<button onclick="startQuiz('1')">Quiz 1</button>
-<button onclick="startQuiz('2')">Quiz 2</button>
+<button onclick="startQuiz()">Quiz 1</button>
+<button onclick="startQuiz()">Quiz 2</button>
+
+</div>
 
 <script>
-function startQuiz(quiz) {
-  window.location.href = "test.html?quiz=" + quiz;
+
+function startQuiz(){
+window.location.href="test.html";
 }
+
 </script>
 
 </body>
