@@ -1,109 +1,91 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>BrainPad Math Quiz</title>
+<title>BrainPad Quiz</title>
 
 <style>
 
 body{
-font-family: Arial, sans-serif;
-background:#f4f6fb;
+margin:0;
+font-family:Arial;
+height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
-margin:0;
+background:linear-gradient(135deg,#1e63d6,#4fb2ff);
 }
 
-#container{
+.container{
+background:white;
+padding:40px;
+border-radius:15px;
+box-shadow:0 12px 30px rgba(0,0,0,0.2);
 text-align:center;
+width:450px;
 }
 
 h1{
-margin-bottom:20px;
-font-size:36px;
-}
-
-#quizBox{
-background:white;
-padding:35px;
-width:420px;
-border-radius:12px;
-box-shadow:0 6px 20px rgba(0,0,0,0.15);
+margin-bottom:10px;
 }
 
 #timer{
-font-size:18px;
-color:#d63031;
-margin-bottom:10px;
+color:red;
 font-weight:bold;
-}
-
-#qNumber{
-font-size:16px;
 margin-bottom:15px;
-color:#555;
 }
 
 #question{
 font-size:22px;
 margin-bottom:20px;
-font-weight:bold;
 }
 
 .option{
 display:block;
-background:#f1f2f6;
-margin:10px 0;
+width:100%;
 padding:12px;
+margin:8px 0;
+font-size:16px;
+border:none;
 border-radius:8px;
-font-size:18px;
+background:#1e63d6;
+color:white;
 cursor:pointer;
-text-align:left;
-}
-
-.option input{
-margin-right:10px;
+transition:0.3s;
 }
 
 .option:hover{
-background:#dfe6e9;
+background:#0f4bb3;
+transform:scale(1.03);
 }
 
-button{
-margin-top:20px;
-padding:10px 25px;
-font-size:16px;
+#nextBtn{
+margin-top:15px;
+padding:10px 20px;
 border:none;
-background:#0984e3;
-color:white;
 border-radius:6px;
+background:#333;
+color:white;
 cursor:pointer;
 }
 
-button:hover{
-background:#0766b3;
-}
-
-#progressBar{
+.progressBar{
 width:100%;
-height:15px;
 background:#ddd;
-border-radius:10px;
-margin-top:20px;
+height:10px;
+border-radius:5px;
+margin:15px 0;
 }
 
-#progress{
-height:15px;
+.progress{
+height:10px;
 width:0%;
-background:#00b894;
-border-radius:10px;
+background:#1e63d6;
+border-radius:5px;
 }
 
 #result{
-font-size:40px;
-font-weight:bold;
-margin-top:30px;
+font-size:28px;
+margin-top:20px;
 }
 
 </style>
@@ -111,42 +93,28 @@ margin-top:30px;
 
 <body>
 
-<div id="container">
+<div class="container">
 
-<h1>BrainPad Math Quiz</h1>
-
-<div id="quizBox">
+<h1>🧠 BrainPad Quiz</h1>
 
 <div id="timer">Time Left: 5:00</div>
 
 <div id="qNumber"></div>
 
+<div class="progressBar">
+<div class="progress" id="progress"></div>
+</div>
+
 <div id="question"></div>
 
-<label class="option">
-<input type="radio" name="answer" value="0">
-<span id="opt0"></span>
-</label>
+<button class="option" onclick="selectAnswer(0)" id="opt0"></button>
+<button class="option" onclick="selectAnswer(1)" id="opt1"></button>
+<button class="option" onclick="selectAnswer(2)" id="opt2"></button>
 
-<label class="option">
-<input type="radio" name="answer" value="1">
-<span id="opt1"></span>
-</label>
-
-<label class="option">
-<input type="radio" name="answer" value="2">
-<span id="opt2"></span>
-</label>
-
-<button onclick="nextQuestion()">Next</button>
-
-<div id="progressBar">
-<div id="progress"></div>
-</div>
+<button id="nextBtn" onclick="nextQuestion()">Next</button>
 
 <div id="result"></div>
 
-</div>
 </div>
 
 <script>
@@ -166,47 +134,45 @@ let questions=[
 
 let current=0;
 let score=0;
+let selected=-1;
 
 function loadQuestion(){
 
-let q=questions[current];
-
 document.getElementById("qNumber").innerHTML="Question "+(current+1)+" / 10";
 
-document.getElementById("question").innerHTML=q.q;
+document.getElementById("question").innerHTML=questions[current].q;
 
-document.getElementById("opt0").innerHTML=q.o[0];
-document.getElementById("opt1").innerHTML=q.o[1];
-document.getElementById("opt2").innerHTML=q.o[2];
-
-let radios=document.getElementsByName("answer");
-for(let r of radios) r.checked=false;
+document.getElementById("opt0").innerHTML=questions[current].o[0];
+document.getElementById("opt1").innerHTML=questions[current].o[1];
+document.getElementById("opt2").innerHTML=questions[current].o[2];
 
 document.getElementById("progress").style.width=((current)/10*100)+"%";
 
+selected=-1;
+
+}
+
+function selectAnswer(i){
+selected=i;
 }
 
 function nextQuestion(){
-
-let radios=document.getElementsByName("answer");
-let selected=-1;
-
-for(let r of radios){
-if(r.checked) selected=r.value;
-}
 
 if(selected==-1){
 alert("Please select an option");
 return;
 }
 
-if(selected==questions[current].a) score++;
+if(selected==questions[current].a){
+score++;
+}
 
 current++;
 
 if(current<questions.length){
 loadQuestion();
-}else{
+}
+else{
 showResult();
 }
 
@@ -214,8 +180,11 @@ showResult();
 
 function showResult(){
 
-document.getElementById("quizBox").innerHTML=
-"<div id='result'>Your Score: "+score+" / 10</div><br><button onclick='location.reload()'>Next Quiz</button>";
+document.querySelector(".container").innerHTML=
+
+"<h1>🎉 Quiz Finished</h1>"+
+"<div id='result'>Your Score: "+score+" / 10</div>"+
+"<br><button onclick='location.href=\"quizlist.html\"'>Next Quiz</button>";
 
 }
 
