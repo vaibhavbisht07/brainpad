@@ -87,7 +87,7 @@ border-radius:5px;
 font-size:28px;
 margin-top:20px;
 }
-
+.option.selected{background:#00b894;}
 </style>
 </head>
 
@@ -153,7 +153,17 @@ selected=-1;
 }
 
 function selectAnswer(i){
+
 selected=i;
+
+let options=document.getElementsByClassName("option");
+
+for(let j=0;j<options.length;j++){
+options[j].classList.remove("selected");
+}
+
+options[i].classList.add("selected");
+
 }
 
 function nextQuestion(){
