@@ -4,39 +4,49 @@
 <title>Select Class</title>
 
 <style>
+
 body{
+margin:0;
 font-family:Arial, sans-serif;
-background:white;
+}
+
+/* Full page container */
+.container{
+width:100%;
 height:100vh;
+background:#e6b800;
 display:flex;
+flex-direction:column;
 justify-content:center;
 align-items:center;
-margin:0;
-}
-
-.container{
-background:#fff3cd;
-padding:40px;
-border-radius:16px;
 text-align:center;
-box-shadow:0 10px 20px rgba(0,0,0,0.8);
-padding:55px;
-margin:120px auto;
-max-width:1100px;
-width:85%;
 }
 
-button{
-padding:12px 30px;
-margin:10px;
-font-size:16px;
-border:none;
-border-radius:6px;
-background:#ffd24d;
-color:white;
-cursor:pointer;
-transform:scale(1.05);
+/* Title */
+h1{
+font-size:40px;
+margin-bottom:40px;
+color:#333;
 }
+
+/* Buttons */
+button{
+padding:15px 35px;
+font-size:18px;
+margin:10px;
+border:none;
+border-radius:8px;
+background:#ffe680;
+color:#333;
+cursor:pointer;
+font-weight:600;
+}
+
+/* Hover */
+button:hover{
+background:#ffd633;
+}
+
 </style>
 </head>
 
@@ -46,16 +56,16 @@ transform:scale(1.05);
 
 <h1>Select Class</h1>
 
-<button onclick="goSubject()">Class 9</button>
-<button onclick="goSubject()">Class 10</button>
-<button onclick="goSubject()">Class 11</button>
-<button onclick="goSubject()">Class 12</button>
+<button onclick="go('9')">Class 9</button>
+<button onclick="go('10')">Class 10</button>
+<button onclick="go('11')">Class 11</button>
+<button onclick="go('12')">Class 12</button>
 
 </div>
 
 <script>
-function goSubject(){
-window.location.href="subjects.html";
+function go(c){
+window.location.href="subjects.html?class="+c;
 }
 </script>
 
