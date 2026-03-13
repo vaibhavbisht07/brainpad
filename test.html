@@ -107,9 +107,9 @@ margin-top:20px;
 
 <div id="question"></div>
 
-<button class="option" onclick="selectAnswer(0)" id="opt0"></button>
-<button class="option" onclick="selectAnswer(1)" id="opt1"></button>
-<button class="option" onclick="selectAnswer(2)" id="opt2"></button>
+<button class="option"id="opt0"></button>
+<button class="option"id="opt1"></button>
+<button class="option"id="opt2"></button>
 
 <button id="nextBtn" onclick="nextQuestion()">Next</button>
 
@@ -148,10 +148,14 @@ document.getElementById("opt2").innerHTML=questions[current].o[2];
 
 document.getElementById("progress").style.width=((current)/10*100)+"%";
 
-selected=-1;
+// remove previous option color
+document.querySelectorAll(".option").forEach(btn => {
+  btn.classList.remove("selected");
+});
+
+selected = -1;
 
 }
-
 function selectAnswer(i){
 
 selected=i;
