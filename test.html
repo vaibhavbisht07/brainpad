@@ -107,9 +107,9 @@ margin-top:20px;
 
 <div id="question"></div>
 
-<button class="option"id="opt0"></button>
-<button class="option"id="opt1"></button>
-<button class="option"id="opt2"></button>
+<button class="option"id="opt0"onclick="selectAnswer(0)></button>
+<button class="option"id="opt1"onclick="selectAnswer(1)></button>
+<button class="option"id="opt2"onclick="selectAnswer(2)></button>
 
 <button id="nextBtn" onclick="nextQuestion()">Next</button>
 
@@ -158,18 +158,17 @@ selected = -1;
 }
 function selectAnswer(i){
 
-selected=i;
+selected = i;
 
-let options=document.getElementsByClassName("option");
+// reset all option colors
+document.querySelectorAll(".option").forEach(btn=>{
+  btn.style.background="";
+});
 
-for(let j=0;j<options.length;j++){
-options[j].classList.remove("selected");
+// color the selected one
+document.getElementById("opt"+i).style.background="#00c6ff";
+
 }
-
-options[i].classList.add("selected");
-
-}
-
 function nextQuestion(){
 
 if(selected==-1){
